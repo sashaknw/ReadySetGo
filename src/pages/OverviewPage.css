@@ -1,0 +1,73 @@
+.overview-page {
+    padding: 1rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2196f3;
+}
+
+.overview-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.tasks-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-item {
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.task-item:last-child {
+    border-bottom: none;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+.status-todo {
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+.status-in-progress {
+    background: #fff3e0;
+    color: #e65100;
+}
+
+.status-review {
+    background: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.status-done {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
