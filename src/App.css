@@ -1,16 +1,38 @@
 :root {
-  --bg-cream: #faf7f2;
-  --sidebar-bg: #181818;
-  --pink-light: #ffd6e6;
-  --yellow-light: #ffe49c;
-  --blue-light: #d6e9ff;
-  --text-dark: #181818;
+  --bg-main: rgb(251, 243, 230);
+  --sidebar-bg: rgb(17, 17, 17);
+  --pink-accent: rgb(244, 184, 218);
+  --yellow-accent: rgb(246, 215, 109);
+  --blue-accent: rgb(183, 202, 236);
+  --green-accent: rgb(155, 171, 98);
+  --text-dark: rgb(17, 17, 17);
+  --text-light: rgb(255, 246, 247);
+  --widget-selected: rgb(239, 231, 218);
 }
 
 body {
-  background-color: var(--bg-cream);
+  margin: 0;
+  background-color: var(--bg-main);
   color: var(--text-dark);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.gugi-regular {
+  font-family: "Gugi", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Gugi", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+h1 {
+  font-size: 2rem;
 }
 
 .app {
@@ -19,36 +41,29 @@ body {
   min-height: 100vh;
 }
 
-.sidebar {
-  background: var(--sidebar-bg);
-  color: white;
-  padding: 2rem 1rem;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  color: #888;
-  text-decoration: none;
-  border-radius: 8px;
-  margin-bottom: 0.5rem;
-}
-
-.nav-item:hover,
-.nav-item.active {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-}
-
 .main-content {
   padding: 2rem;
 }
 
 .card {
-  background: white;
+  background: var(--widget-selected);
   border-radius: 16px;
   padding: 1.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+button {
+  background-color: rgb(17, 17, 17);
+  color: rgb(255, 246, 247);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 35px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: rgb(239, 231, 218);
+  color: rgb(17, 17, 17);
 }

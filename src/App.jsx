@@ -1,10 +1,6 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  NavLink,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
+import Sidebar from "./components/Sidebar";
 import OverviewPage from "./pages/OverviewPage";
 import KanbanPage from "./pages/KanbanPage";
 import data from "./data/data.json";
@@ -23,34 +19,15 @@ function App() {
     );
   };
 
+   const handleDeleteTask = (taskId) => {
+      console.log("Deleting taskId:", taskId);
+     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+   };
+
   return (
     <Router>
       <div className="app">
-        <aside className="sidebar">
-          <div className="logo">
-            <h1>Intelly</h1>
-          </div>
-
-          <nav className="nav-menu">
-            <NavLink to="/" className="nav-item">
-              <span className="icon">📊</span>
-              Overview
-            </NavLink>
-            <NavLink to="/kanban" className="nav-item">
-              <span className="icon">📋</span>
-              Tasks
-            </NavLink>
-            <NavLink to="/schedule" className="nav-item">
-              <span className="icon">📅</span>
-              Schedule
-            </NavLink>
-            <NavLink to="/patients" className="nav-item">
-              <span className="icon">👥</span>
-              Patients
-            </NavLink>
-          </nav>
-        </aside>
-
+        <Sidebar />
         <main className="main-content">
           <Routes>
             <Route path="/" element={<OverviewPage tasks={tasks} />} />
@@ -63,6 +40,7 @@ function App() {
                   categories={data.categories}
                   onAddTask={addTask}
                   onUpdateTask={updateTask}
+                  onDeleteTask={handleDeleteTask}
                 />
               }
             />

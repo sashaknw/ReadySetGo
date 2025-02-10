@@ -1,0 +1,165 @@
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.delete-button-png {
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.delete-button-png:hover {
+    transform: scale(1.1);
+}
+
+.confirm-modal {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+    z-index: 1100;
+}
+
+.confirm-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.delete-btn {
+    background: #ff4444;
+}
+
+.delete-btn:hover {
+    background: #cc0000;
+    color: white;
+}
+
+.modal-backdrop {
+    z-index: 1000;
+    pointer-events: auto;
+}
+
+.success-notification-overlay {
+    position: fixed;
+    z-index: 9999;
+    background: none;
+    pointer-events: none;
+}
+
+.success-notification {
+    background: #4CAF50;
+    color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1.5rem 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    animation: slideInAndStay 3s ease forwards;
+}
+
+@keyframes slideInAndStay {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -100%);
+    }
+
+    15% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    85% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -100%);
+    }
+}
+
+
+
+.task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 0.75rem;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    background: #f8f8f8;
+    transition: all 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--pink-light);
+    background: white;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+}

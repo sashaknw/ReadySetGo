@@ -1,7 +1,11 @@
+
 .calendar {
-    background: white;
+    background: var(--widget-selected);
     border-radius: 16px;
     padding: 1.5rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 .calendar-header {
@@ -14,6 +18,7 @@
 .calendar-header h3 {
     font-size: 1.1rem;
     font-weight: 500;
+    color: var(--text-dark);
 }
 
 .calendar-grid {
@@ -25,7 +30,7 @@
 .calendar-day-header {
     text-align: center;
     font-size: 0.85rem;
-    color: #666;
+    color: var(--text-dark);
     padding: 0.5rem 0;
 }
 
@@ -35,25 +40,28 @@
     padding: 0.5rem;
     cursor: pointer;
     position: relative;
-    background: #f8f8f8;
+    background: var(--bg-main);
     border: none;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .calendar-day:hover {
-    background: var(--pink-light);
+    background: var(--pink-accent);
+    transform: scale(1.05);
 }
 
 .calendar-day.has-tasks {
-    background: var(--pink-light);
+    background: var(--pink-accent);
 }
 
 .calendar-day.today {
-    background: var(--yellow-light);
+    background: var(--yellow-accent);
 }
 
 .day-number {
     font-size: 0.9rem;
     font-weight: 500;
+    color: var(--text-dark);
 }
 
 .task-indicator {
@@ -66,4 +74,77 @@
     padding: 0.125rem 0.25rem;
     border-radius: 8px;
     text-align: center;
+    color: var(--text-dark);
+}
+
+/* Kanban calendar layout */
+.kanban-calendar {
+    padding: 1rem;
+    width: 90%;
+    max-width: 400px;
+    margin: 0 auto;
+    display: block;
+    box-sizing: border-box;
+}
+
+.kanban-calendar .calendar-day {
+    padding: 0.25rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.kanban-calendar .day-number {
+    font-size: 0.8rem;
+}
+
+.kanban-calendar .task-indicator {
+    font-size: 0.6rem;
+    padding: 0.125rem 0.25rem;
+}
+
+
+@media (max-width: 1200px) {
+    .kanban-calendar {
+        width: 80%;
+    }
+
+    .calendar-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .kanban-calendar {
+        width: 100%;
+    }
+
+    .calendar-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .calendar-day-header {
+        font-size: 0.75rem;
+    }
+
+    .calendar-day {
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar-header h3 {
+        font-size: 1rem;
+    }
+
+    .calendar-day {
+        padding: 0.4rem;
+    }
+
+    .day-number {
+        font-size: 0.8rem;
+    }
+
+    .task-indicator {
+        font-size: 0.5rem;
+        padding: 0.125rem 0.25rem;
+    }
 }

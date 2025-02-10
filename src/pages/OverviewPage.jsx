@@ -59,7 +59,7 @@ function OverviewPage({ tasks }) {
             </div>
           ) : (
             <div className="priority-tasks">
-              <h3>High Priority Tasks</h3>
+              <h4>High Priority Tasks</h4>
               {tasks
                 .filter((task) => task.priority === "high")
                 .map((task) => (

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "./Calendar.css";
 
-function Calendar({ tasks, onSelectDate }) {
+function Calendar({ tasks, onSelectDate, page }) {
+  // Added 'page' prop
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const getDaysInMonth = (date) => {
@@ -60,7 +61,9 @@ function Calendar({ tasks, onSelectDate }) {
   };
 
   return (
-    <div className="calendar">
+    <div className={`calendar ${page === "kanban" ? "kanban-calendar" : ""}`}>
+      {" "}
+  
       <div className="calendar-header">
         <button onClick={() => changeMonth(-1)}>&lt;</button>
         <h3>

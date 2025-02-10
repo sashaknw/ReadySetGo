@@ -1,8 +1,15 @@
 import { useState } from "react";
-import "./KanbanBoard.css";
+import AddTaskModal from "./AddTaskModal";
 
-function KanbanBoard({ tasks, statuses, onUpdateTask }) {
+function KanbanBoard({
+  tasks,
+  statuses,
+  categories,
+  onUpdateTask,
+  onDeleteTask,
+}) {
   const [draggedTask, setDraggedTask] = useState(null);
+  const [editingTask, setEditingTask] = useState(null);
 
   const handleDragStart = (task) => {
     setDraggedTask(task);
@@ -15,12 +22,24 @@ function KanbanBoard({ tasks, statuses, onUpdateTask }) {
     }
   };
 
+  const handleEditSubmit = (updatedTask) => {
+    onUpdateTask(updatedTask);
+    setEditingTask(null);
+  };
+
+  const handleDeleteTask = () => {
+    console.log('Deleting task:', editingTask.id);
+    onDeleteTask(editingTask.id);
+    setEditingTask(null);
+  };
+
   return (
     <div className="kanban-board">
       {statuses.map((status) => (
         <div
           key={status}
           className="kanban-column"
+          data-status={status}
           onDragOver={(e) => e.preventDefault()}
           onDrop={() => handleDrop(status)}
         >
@@ -35,6 +54,12 @@ function KanbanBoard({ tasks, statuses, onUpdateTask }) {
                   draggable
                   onDragStart={() => handleDragStart(task)}
                 >
+                  <img
+                    src="/src/assets/icons/edit.png"
+                    className="edit-button-png"
+                    alt="edit icon"
+                    onClick={() => setEditingTask(task)}
+                  />
                   <h4>{task.title}</h4>
                   <p>{task.description}</p>
                   <div className="task-meta">
@@ -48,6 +73,22 @@ function KanbanBoard({ tasks, statuses, onUpdateTask }) {
           </div>
         </div>
       ))}
+
+      {editingTask && (
+        <AddTaskModal
+          isOpen={!!editingTask}
+          onClose={() => setEditingTask(null)}
+          task={editingTask}
+          setTask={setEditingTask}
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleEditSubmit(editingTask);
+          }}
+          onDelete={handleDeleteTask}
+          categories={categories}
+          isEditing={true}
+        />
+      )}
     </div>
   );
 }
