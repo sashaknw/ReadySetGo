@@ -2,6 +2,11 @@ import { useState } from "react";
 import Calendar from "../components/Calendar";
 import "./OverviewPage.css";
 
+// Import local images
+import totalTasksImage from "../assets/images/blue-blop.png";
+import completedTasksImage from "../assets/images/pink-blop.png";
+import inProgressTasksImage from "../assets/images/yellow-blop.png";
+
 function OverviewPage({ tasks }) {
   const [selectedDate, setSelectedDate] = useState(null);
 
@@ -14,25 +19,44 @@ function OverviewPage({ tasks }) {
 
   const stats = getTaskStats();
 
+  const statCardStyles = [
+    {
+      title: "Total Tasks",
+      count: stats.total,
+      backgroundImage: totalTasksImage,
+    },
+    {
+      title: "Completed",
+      count: stats.completed,
+      backgroundImage: completedTasksImage,
+    },
+    {
+      title: "In Progress",
+      count: stats.inProgress,
+      backgroundImage: inProgressTasksImage,
+    },
+  ];
+
   return (
     <div className="overview-page">
       <div className="stats-grid">
-        <div className="stat-card">
-          <h3>Total Tasks</h3>
-          <span className="stat-number">{stats.total}</span>
-        </div>
-        <div className="stat-card">
-          <h3>Completed</h3>
-          <span className="stat-number">{stats.completed}</span>
-        </div>
-        <div className="stat-card">
-          <h3>In Progress</h3>
-          <span className="stat-number">{stats.inProgress}</span>
-        </div>
-        <div className="stat-card">
-          <h3>Upcoming</h3>
-          <span className="stat-number">{stats.upcoming}</span>
-        </div>
+        {statCardStyles.map((card, index) => (
+          <div
+            key={card.title}
+            className="stat-card"
+            style={{
+              backgroundImage: `url(${card.backgroundImage})`,
+              backgroundSize: "100%", 
+              backgroundPosition: "top -50px right 50px", 
+              backgroundRepeat: "no-repeat",
+            }}
+          >
+            <div className="stat-card-content">
+              <h3>{card.title}</h3>
+              <span className="stat-number">{card.count}</span>
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="overview-content">

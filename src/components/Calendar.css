@@ -43,6 +43,9 @@
     background: var(--bg-main);
     border: none;
     transition: background 0.3s ease, transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+
 }
 
 .calendar-day:hover {
@@ -64,24 +67,24 @@
     color: var(--text-dark);
 }
 
-.task-indicator {
-    position: absolute;
-    bottom: 0.25rem;
-    left: 0.25rem;
-    right: 0.25rem;
-    background: rgba(255, 255, 255, 0.8);
-    font-size: 0.7rem;
-    padding: 0.125rem 0.25rem;
-    border-radius: 8px;
-    text-align: center;
-    color: var(--text-dark);
+.task-dot {
+    width: 5px;
+    height: 5px;
+    background-color: var(--text-dark);
+    border-radius: 50%;
+    margin-top: 3px;
+    margin-left: 30px;
+    padding: 2px;
 }
+.task-indicator .task-dot:nth-child(n+4) {
+    display: none;
+    /* max 3 dots */
 
-/* Kanban calendar layout */
+/* for kanban page special layouttt */
 .kanban-calendar {
     padding: 1rem;
     width: 90%;
-    max-width: 400px;
+    max-width: 500px;
     margin: 0 auto;
     display: block;
     box-sizing: border-box;
@@ -101,6 +104,16 @@
     padding: 0.125rem 0.25rem;
 }
 
+.task-indicator {
+    position: absolute;
+    bottom: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 2px;
+
+}
 
 @media (max-width: 1200px) {
     .kanban-calendar {

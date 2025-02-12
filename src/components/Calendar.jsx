@@ -43,8 +43,15 @@ function Calendar({ tasks, onSelectDate, page }) {
         >
           <span className="day-number">{day}</span>
           {dayTasks.length > 0 && (
-            <div className="task-indicator">
-              {dayTasks.length} task{dayTasks.length !== 1 ? "s" : ""}
+            <div
+              className="task-indicator"
+              data-more-tasks={
+                dayTasks.length > 3 ? `+${dayTasks.length - 3}` : ""
+              }
+            >
+              {dayTasks.slice(0, 3).map((task, index) => (
+                <div key={index} className="task-dot" />
+              ))}
             </div>
           )}
         </div>
@@ -63,7 +70,6 @@ function Calendar({ tasks, onSelectDate, page }) {
   return (
     <div className={`calendar ${page === "kanban" ? "kanban-calendar" : ""}`}>
       {" "}
-  
       <div className="calendar-header">
         <button onClick={() => changeMonth(-1)}>&lt;</button>
         <h3>

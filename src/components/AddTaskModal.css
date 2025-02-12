@@ -10,6 +10,8 @@
     align-items: center;
     z-index: 1000;
     pointer-events: auto;
+    overflow: auto;
+    
 }
 
 .modal-content {
@@ -19,13 +21,37 @@
     width: 100%;
     max-width: 500px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
+    max-height: 90vh;
+    height: fit-content;
+    position: relative;
+
+}
+
+
+.image-preview-container {
+    overflow: auto;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-preview {
+  
+    object-fit: cover;
+    max-width: 100%;
+    max-height: 250px;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 
 .modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
+    top: 0;
 }
 
 .delete-button-png {
@@ -64,10 +90,7 @@
     color: white;
 }
 
-.modal-backdrop {
-    z-index: 1000;
-    pointer-events: auto;
-}
+
 
 .success-notification-overlay {
     position: fixed;

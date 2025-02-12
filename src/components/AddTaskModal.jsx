@@ -22,7 +22,7 @@ const DeleteConfirmModal = ({ onConfirm, onCancel }) => (
             successOverlay.appendChild(successMsg);
             document.body.appendChild(successOverlay);
 
-            setTimeout(() => successOverlay.remove(), 3000); 
+            setTimeout(() => successOverlay.remove(), 3000);
           }}
         >
           Delete
@@ -31,8 +31,6 @@ const DeleteConfirmModal = ({ onConfirm, onCancel }) => (
     </div>
   </div>
 );
-
-
 
 const AddTaskModal = ({
   isOpen,
@@ -46,20 +44,43 @@ const AddTaskModal = ({
 }) => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [imagePreview, setImagePreview] = useState(null);
 
   if (!isOpen) return null;
 
-const handleDelete = () => {
-  setShowDeleteConfirm(false);
-  setShowSuccess(true);
-  setTimeout(() => {
-    setShowSuccess(false);
+  const handleDelete = () => {
+    setShowDeleteConfirm(false);
+    setShowSuccess(true);
     setTimeout(() => {
-      onDelete();
-      onClose();
-    }, 1000);
-  }, 2000);
-};
+      setShowSuccess(false);
+      setTimeout(() => {
+        onDelete();
+        onClose();
+      }, 1000);
+    }, 2000);
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        // Update task with image and set preview
+        setTask({ ...task, image: reader.result });
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    // Remove image from task and preview
+    setTask({ ...task, image: null });
+    setImagePreview(null);
+    // Reset file input
+    const fileInput = document.getElementById("task-image-upload");
+    if (fileInput) fileInput.value = "";
+  };
 
   return (
     <>
@@ -96,6 +117,34 @@ const handleDelete = () => {
                   setTask({ ...task, description: e.target.value })
                 }
               />
+            </div>
+
+            <div className="form-group">
+              <label>Task Image</label>
+              <input
+                type="file"
+                id="task-image-upload"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="image-upload-input"
+              />
+
+              {imagePreview && (
+                <div className="image-preview-container">
+                  <img
+                    src={imagePreview}
+                    alt="Task preview"
+                    className="image-preview"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleRemoveImage}
+                    className="remove-image-btn"
+                  >
+                    Remove Image
+                  </button>
+                </div>
+              )}
             </div>
 
             <div className="form-row">

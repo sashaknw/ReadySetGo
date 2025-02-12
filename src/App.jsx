@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Sidebar from "./components/Sidebar";
+import Footer from "./components/Footer";
 import OverviewPage from "./pages/OverviewPage";
 import KanbanPage from "./pages/KanbanPage";
 import data from "./data/data.json";
@@ -46,6 +47,7 @@ function App() {
             />
           </Routes>
         </main>
+        <Footer />
       </div>
     </Router>
   );
