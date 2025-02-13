@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://sashaknw.github.io/ReadySetGo/",
   "scripts": {
     "dev:client": "vite",
     "dev:server": "node server/server.js",
