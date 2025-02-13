@@ -35,7 +35,17 @@ app.use(
 
 app.use(express.json({ limit: "50mb" }));
 
-// Data file is now in the same directory as server.js
+// Root route
+app.get("/", (req, res) => {
+  res.json({
+    message: "ReadySetGo API is running",
+    endpoints: {
+      getTasks: "/api/tasks",
+      health: "/api/health",
+    },
+  });
+});
+
 const DATA_FILE = join(__dirname, "data.json");
 
 // Read data
@@ -45,7 +55,6 @@ app.get("/api/tasks", async (req, res) => {
     res.json(JSON.parse(data));
   } catch (error) {
     console.error("Error reading file:", error);
-    // Return default data if file read fails
     res.json({
       tasks: [],
       categories: ["Social Media", "Selection", "Networking", "Research"],
