@@ -8,24 +8,25 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
-app.use(cors());
+// Configure CORS
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://sashaknw.github.io"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
 app.use(express.json({ limit: "50mb" }));
 
-// Construct the path to data.json
 const DATA_FILE = join(__dirname, "..", "src", "data", "data.json");
-
-// Basic error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send("Something broke!");
-});
 
 // Read data
 app.get("/api/tasks", async (req, res) => {
   try {
-    console.log("Reading from:", DATA_FILE); // Debug log
+    console.log("Reading from:", DATA_FILE);
     const data = await fs.readFile(DATA_FILE, "utf8");
     res.json(JSON.parse(data));
   } catch (error) {

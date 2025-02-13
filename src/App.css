@@ -67,3 +67,26 @@ button:hover {
   background-color: rgb(239, 231, 218);
   color: rgb(17, 17, 17);
 }
+
+.error-banner {
+  background-color: rgb(244, 184, 218);
+  color: rgb(17, 17, 17);
+  padding: 0.75rem;
+  margin: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.9rem;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
