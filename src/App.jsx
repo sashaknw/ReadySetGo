@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
@@ -9,7 +9,8 @@ import About from "./pages/About";
 import "./App.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
-
+const isGitHubPages = import.meta.env.MODE === "production";
+const basename = isGitHubPages ? "/ReadySetGo" : "/";
 function App() {
   const [tasks, setTasks] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -105,34 +106,35 @@ function App() {
     }
   };
 
-  return (
-    <Router>
-      <div className="app">
-        <Sidebar />
-        <main className="main-content">
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<OverviewPage tasks={tasks} />} />
-            <Route
-              path="/kanban"
-              element={
-                <KanbanPage
-                  tasks={tasks}
-                  statuses={statuses}
-                  categories={categories}
-                  onAddTask={addTask}
-                  onUpdateTask={updateTask}
-                  onDeleteTask={deleteTask}
-                />
-              }
-            />
-            <Route path="/about" element={<About />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
-  );
+    return (
+      <Router>
+        <div className="app">
+          <Sidebar />
+          <main className="main-content">
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<OverviewPage tasks={tasks} />} />
+              <Route
+                path="/kanban"
+                element={
+                  <KanbanPage
+                    tasks={tasks}
+                    statuses={statuses}
+                    categories={categories}
+                    onAddTask={addTask}
+                    onUpdateTask={updateTask}
+                    onDeleteTask={deleteTask}
+                  />
+                }
+              />
+              <Route path="/about" element={<About />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    );
 }
+
 
 export default App;

@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { icons } from "../assets/assets";
 import "./AddTaskModal.css";
 
 const DeleteConfirmModal = ({ onConfirm, onCancel }) => (
@@ -44,23 +45,30 @@ const AddTaskModal = ({
 }) => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
-   const fileInputRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   if (!isOpen) return null;
 
-    const handleImageUpload = (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setTask({
-            ...task,
-            image: reader.result, 
-          });
-        };
-        reader.readAsDataURL(file);
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        // 5MB limit
+        alert("File size should be less than 5MB");
+        return;
       }
-    };
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setTask({
+          ...task,
+          image: reader.result,
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(e);
@@ -104,7 +112,7 @@ const AddTaskModal = ({
               <h3>{isEditing ? "Update Task" : "Add New Task"}</h3>
               {isEditing && (
                 <img
-                  src="/src/assets/icons/delete.png"
+                  src={icons.delete}
                   className="delete-button-png"
                   alt="delete icon"
                   onClick={() => setShowDeleteConfirm(true)}
@@ -117,10 +125,7 @@ const AddTaskModal = ({
               <input
                 type="text"
                 value={task.title}
-                onChange={(e) => {
-                  console.log("Title changed:", e.target.value); // Debug log
-                  setTask({ ...task, title: e.target.value });
-                }}
+                onChange={(e) => setTask({ ...task, title: e.target.value })}
                 required
               />
             </div>
@@ -179,14 +184,6 @@ const AddTaskModal = ({
               />
             </div>
 
-            <div className="form-actions">
-              <button type="button" onClick={onClose}>
-                Cancel
-              </button>
-              <button type="submit">
-                {isEditing ? "Update Task" : "Add Task"}
-              </button>
-            </div>
             <div className="form-group">
               <label>Task Image</label>
               <input
@@ -220,6 +217,15 @@ const AddTaskModal = ({
                   </button>
                 </div>
               )}
+            </div>
+
+            <div className="form-actions">
+              <button type="button" onClick={onClose}>
+                Cancel
+              </button>
+              <button type="submit">
+                {isEditing ? "Update Task" : "Add Task"}
+              </button>
             </div>
           </form>
         </div>

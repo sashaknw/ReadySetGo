@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AddTaskModal from "./AddTaskModal";
+import { icons } from "../assets/assets";
 
 function KanbanBoard({
   tasks,
@@ -28,7 +29,7 @@ function KanbanBoard({
   };
 
   const handleDeleteTask = () => {
-    console.log('Deleting task:', editingTask.id);
+    console.log("Deleting task:", editingTask.id);
     onDeleteTask(editingTask.id);
     setEditingTask(null);
   };
@@ -55,7 +56,7 @@ function KanbanBoard({
                   onDragStart={() => handleDragStart(task)}
                 >
                   <img
-                    src="/src/assets/icons/edit.png"
+                    src={icons.edit}
                     className="edit-button-png"
                     alt="edit icon"
                     onClick={() => setEditingTask(task)}
