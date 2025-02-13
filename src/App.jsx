@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import OverviewPage from "./pages/OverviewPage";
 import KanbanPage from "./pages/KanbanPage";
 import About from "./pages/About";
+import NotFound from "./pages/NotFound";
 import "./App.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
@@ -140,6 +141,7 @@ function App() {
               }
             />
             <Route path="/about" element={<About />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />
