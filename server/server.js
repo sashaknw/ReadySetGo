@@ -10,28 +10,47 @@ const __dirname = dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Configure CORS
+// CORS Configuration
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://sashaknw.github.io",
+  "https://sashaknw.github.io/ReadySetGo",
+];
+
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://sashaknw.github.io"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
+    optionsSuccessStatus: 200,
   })
 );
 
 app.use(express.json({ limit: "50mb" }));
 
-const DATA_FILE = join(__dirname, "..", "src", "data", "data.json");
+// Data file is now in the same directory as server.js
+const DATA_FILE = join(__dirname, "data.json");
 
 // Read data
 app.get("/api/tasks", async (req, res) => {
   try {
-    console.log("Reading from:", DATA_FILE);
     const data = await fs.readFile(DATA_FILE, "utf8");
     res.json(JSON.parse(data));
   } catch (error) {
     console.error("Error reading file:", error);
-    res.status(500).json({ error: "Error reading data" });
+    // Return default data if file read fails
+    res.json({
+      tasks: [],
+      categories: ["Social Media", "Selection", "Networking", "Research"],
+      statuses: ["todo", "in-progress", "review", "done"],
+    });
   }
 });
 
@@ -47,7 +66,11 @@ app.put("/api/tasks", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-  console.log("Data file location:", DATA_FILE);
+// Health check endpoint
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok" });
+});
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on port ${PORT}`);
 });

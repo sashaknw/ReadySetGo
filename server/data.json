@@ -1,0 +1,46 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Update Linktree ",
+      "description": "Set up links to new soundcloud account",
+      "status": "done",
+      "dueDate": "2025-02-10",
+      "priority": "high",
+      "category": "Social Media",
+      "image": null
+    },
+    {
+      "id": "2",
+      "title": "Download 10 Acid Tracks",
+      "description": "new acid tracks for Saturday night",
+      "status": "review",
+      "dueDate": "2025-02-15",
+      "priority": "medium",
+      "category": "Selection",
+      "image": null
+    },
+    {
+      "id": "3",
+      "title": "Contact new clubs",
+      "description": "contact new clubs to see what they have to offer",
+      "status": "in-progress",
+      "dueDate": "2025-02-15",
+      "priority": "low",
+      "category": "Networking",
+      "image": null
+    }
+  ],
+  "categories": [
+    "Social Media",
+    "Selection",
+    "Networking",
+    "Research"
+  ],
+  "statuses": [
+    "todo",
+    "in-progress",
+    "review",
+    "done"
+  ]
+}

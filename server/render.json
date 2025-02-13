@@ -1,6 +1,0 @@
-{
-  "start": "node server.js",
-  "env": {
-    "NODE_VERSION": "18.0.0"
-  }
-}
