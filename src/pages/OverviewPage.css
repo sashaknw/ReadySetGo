@@ -16,43 +16,13 @@
     padding: 20px;
     color: var(--text-dark);
     overflow: hidden;
-    transition: all 0.4s ease;
-    
-    
 }
 
 .stat-card:hover {
 
-    animation: wobble 0.2s;
-    
+    transform: scale(1.05);
 }
-@keyframes wobble {
 
-    0%,
-    100% {
-        transform: translateX(0%);
-    }
-
-    15% {
-        transform: translateX(-5%) rotate(-3deg);
-    }
-
-    30% {
-        transform: translateX(5%) rotate(3deg);
-    }
-
-    45% {
-        transform: translateX(-3%) rotate(-2deg);
-    }
-
-    60% {
-        transform: translateX(1%) rotate(1deg);
-    }
-
-    75% {
-        transform: translateX(-1%) rotate(-1deg);
-    }
-}
 
 .stat-card-content {
     position: relative;

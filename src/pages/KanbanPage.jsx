@@ -11,28 +11,51 @@ function KanbanPage({ tasks, statuses, categories, onAddTask, onUpdateTask, onDe
     description: "",
     status: "todo",
     priority: "medium",
-    category: "",
-    dueDate: "",
+    category: categories[0] || "", 
+    dueDate: new Date().toISOString().split("T")[0],
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onAddTask(newTask);
-    setNewTask({
-      title: "",
-      description: "",
-      status: "todo",
-      priority: "medium",
-      category: "",
-      dueDate: "",
-    });
-    setShowTaskForm(false);
-  };
+ const handleSubmit = (e) => {
+   e.preventDefault();
+   console.log("Submitting new task:", newTask); // Debug log
+
+   // Validate required fields
+   if (!newTask.title || !newTask.category || !newTask.dueDate) {
+     alert("Please fill in all required fields");
+     return;
+   }
+
+   // Make sure the task matches your data structure
+   const taskToAdd = {
+     title: newTask.title,
+     description: newTask.description,
+     status: newTask.status,
+     dueDate: newTask.dueDate,
+     priority: newTask.priority,
+     category: newTask.category,
+   };
+
+   onAddTask(taskToAdd);
+
+   // Reset form
+   setNewTask({
+     title: "",
+     description: "",
+     status: "todo",
+     priority: "medium",
+     category: categories[0] || "",
+     dueDate: new Date().toISOString().split("T")[0],
+   });
+   setShowTaskForm(false);
+ };
 
   return (
     <div className="kanban-page">
       <div className="kanban-header">
-        <button className="add-task-btn" onClick={() => setShowTaskForm(true)}>
+        <button className="add-task-btn" onClick={() =>  {
+          console.log("Add Task button clicked");
+          setShowTaskForm(true);
+        }}>
           Add Task
         </button>
       </div>
@@ -59,6 +82,8 @@ function KanbanPage({ tasks, statuses, categories, onAddTask, onUpdateTask, onDe
         setTask={setNewTask}
         onSubmit={handleSubmit}
         categories={categories}
+        isEditing={false}
+        onDelete={() => {}}
       />
     </div>
   );

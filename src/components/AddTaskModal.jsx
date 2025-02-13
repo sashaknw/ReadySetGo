@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./AddTaskModal.css";
 
 const DeleteConfirmModal = ({ onConfirm, onCancel }) => (
@@ -44,9 +44,32 @@ const AddTaskModal = ({
 }) => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
-  const [imagePreview, setImagePreview] = useState(null);
+   const fileInputRef = useRef(null);
 
   if (!isOpen) return null;
+
+    const handleImageUpload = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setTask({
+            ...task,
+            image: reader.result, 
+          });
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(e);
+    setShowSuccess(true);
+    setTimeout(() => {
+      setShowSuccess(false);
+      onClose();
+    }, 1500);
+  };
 
   const handleDelete = () => {
     setShowDeleteConfirm(false);
@@ -54,39 +77,29 @@ const AddTaskModal = ({
     setTimeout(() => {
       setShowSuccess(false);
       setTimeout(() => {
-        onDelete();
+        onDelete(task.id);
         onClose();
-      }, 1000);
-    }, 2000);
+      }, 500);
+    }, 1000);
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        // Update task with image and set preview
-        setTask({ ...task, image: reader.result });
-        setImagePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleRemoveImage = () => {
-    // Remove image from task and preview
-    setTask({ ...task, image: null });
-    setImagePreview(null);
-    // Reset file input
-    const fileInput = document.getElementById("task-image-upload");
-    if (fileInput) fileInput.value = "";
-  };
+  const SuccessNotification = () => (
+    <div className="success-notification-overlay">
+      <div className="success-notification">
+        <p>
+          {isEditing
+            ? "Task successfully updated!"
+            : "Task successfully added!"}
+        </p>
+      </div>
+    </div>
+  );
 
   return (
     <>
       <div className="modal-backdrop" onClick={onClose}>
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-          <form onSubmit={onSubmit} className="task-form">
+          <form onSubmit={handleSubmit} className="task-form">
             <div className="modal-header">
               <h3>{isEditing ? "Update Task" : "Add New Task"}</h3>
               {isEditing && (
@@ -100,11 +113,14 @@ const AddTaskModal = ({
             </div>
 
             <div className="form-group">
-              <label>Title</label>
+              <label>Title *</label>
               <input
                 type="text"
                 value={task.title}
-                onChange={(e) => setTask({ ...task, title: e.target.value })}
+                onChange={(e) => {
+                  console.log("Title changed:", e.target.value); // Debug log
+                  setTask({ ...task, title: e.target.value });
+                }}
                 required
               />
             </div>
@@ -119,37 +135,9 @@ const AddTaskModal = ({
               />
             </div>
 
-            <div className="form-group">
-              <label>Task Image</label>
-              <input
-                type="file"
-                id="task-image-upload"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="image-upload-input"
-              />
-
-              {imagePreview && (
-                <div className="image-preview-container">
-                  <img
-                    src={imagePreview}
-                    alt="Task preview"
-                    className="image-preview"
-                  />
-                  <button
-                    type="button"
-                    onClick={handleRemoveImage}
-                    className="remove-image-btn"
-                  >
-                    Remove Image
-                  </button>
-                </div>
-              )}
-            </div>
-
             <div className="form-row">
               <div className="form-group">
-                <label>Category</label>
+                <label>Category *</label>
                 <select
                   value={task.category}
                   onChange={(e) =>
@@ -182,7 +170,7 @@ const AddTaskModal = ({
             </div>
 
             <div className="form-group">
-              <label>Due Date</label>
+              <label>Due Date *</label>
               <input
                 type="date"
                 value={task.dueDate}
@@ -198,6 +186,40 @@ const AddTaskModal = ({
               <button type="submit">
                 {isEditing ? "Update Task" : "Add Task"}
               </button>
+            </div>
+            <div className="form-group">
+              <label>Task Image</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                ref={fileInputRef}
+                style={{ display: "none" }}
+              />
+              <button
+                type="button"
+                onClick={() => fileInputRef.current.click()}
+                className="upload-btn"
+              >
+                Choose Image
+              </button>
+
+              {task.image && (
+                <div className="image-preview-container">
+                  <img
+                    src={task.image}
+                    alt="Task preview"
+                    className="image-preview"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setTask({ ...task, image: null })}
+                    className="remove-image-btn"
+                  >
+                    Remove Image
+                  </button>
+                </div>
+              )}
             </div>
           </form>
         </div>

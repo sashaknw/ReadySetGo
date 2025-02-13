@@ -1,0 +1,15 @@
+
+.about {
+    background-image: url('/src/assets/images/pink-blop.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    color: var(--text-dark);
+
+}

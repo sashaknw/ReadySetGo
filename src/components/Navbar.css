@@ -1,0 +1,15 @@
+.navbar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0.8rem;
+    color: var(--text-light);
+    font-size: 1.2rem;
+    font-family: 'Gugi', sans-serif;
+    position: absolute;
+    top: 0;
+    z-index: 1; 
+    left: 0;
+    width: 100%;
+    margin-left: 10px;
+}

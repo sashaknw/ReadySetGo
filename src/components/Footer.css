@@ -3,20 +3,23 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    background-color: #333, 0.8;
-    color: #848484;
-    padding: 10px;
+    padding-left: 30px;
     position: fixed;
-    top: 80%;
-    width: 100%;
+    top: 86%;
+    width: 50%;
     height: 20px;
 }
 
-.logo-footer {
-    font-family:'Gugi', sans-serif;
-
-}
-
-.copyright, .privacy-policy {
+.repo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Gugi', sans-serif;
     font-size: 0.8rem;
+    color: var(--text-light);    
 }
+.logo-footer {
+    height: 25px;
+
+}
+

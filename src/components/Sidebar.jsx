@@ -4,9 +4,7 @@ import "./Sidebar.css";
 function Sidebar() {
   return (
     <aside className="sidebar">
-      <div className="logo">
-        <h1>Ready Set Go!</h1>
-      </div>
+     
 
       <nav className="nav-menu">
         <NavLink to="/" className="nav-item">
@@ -20,6 +18,12 @@ function Sidebar() {
             <img src="/src/assets/icons/tasks.png" alt="tasks icon" />
           </div>
           Tasks
+        </NavLink>
+        <NavLink to="/about" className="nav-item">
+          <div className="icon">
+            <img src="/src/assets/icons/about-me.png" alt="about icon" />
+          </div>
+          About
         </NavLink>
       </nav>
     </aside>
